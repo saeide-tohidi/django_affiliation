@@ -10,7 +10,7 @@ defusedxml==0.7.1
 Django==4.2.10
 django-allauth==0.45.0
 django-ckeditor==6.1.0
-django-grappelli==2.15.3
+django-grappelli==3.0.3
 django-jalali-date==1.0.0
 django-js-asset==1.2.2
 django-render-partial==0.4

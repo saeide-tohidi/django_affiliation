@@ -34,6 +34,7 @@ CSRF_TRUSTED_ORIGINS = os.environ.get(
 ).split(" ")
 
 
+SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
