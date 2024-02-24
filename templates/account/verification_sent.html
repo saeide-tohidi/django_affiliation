@@ -1,0 +1,74 @@
+{% load static %}
+{% load account %}
+{% load i18n %}
+{% load account %}
+
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>تایید ایمیل</title>
+    <meta name="description" content=""/>
+    <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]"/>
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0"/>
+
+    <!-- WEB FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext"
+          rel="stylesheet" type="text/css"/>
+
+    <!-- CORE CSS -->
+    <link href="{% static 'smarty/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!-- THEME CSS -->
+    <link href="{% static 'smarty/css/essentials.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/css/layout.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/css/color_scheme/green.css' %}" rel="stylesheet" type="text/css" id="color_scheme"/>
+    <link href="{% static 'smarty/plugins/bootstrap/RTL/bootstrap-rtl.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/plugins/bootstrap/RTL/bootstrap-flipped.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/css/layout-RTL.css' %}" rel="stylesheet" type="text/css"/>
+
+</head>
+<!--
+    .boxed = boxed version
+-->
+<body>
+
+
+    <div class="padding-15">
+
+        <div class="login-box">
+
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>تایید ایمیل</h3>
+                </div>
+                <hr>
+                <div class="card-body">
+
+                    {% if messages %}
+                        <div class="alert alert-info">
+                            <div class="text-left list-inline">
+                                {% for message in messages %}
+                                    <p>{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <a href="{% url 'account_login' %}" class="btn btn-primary">ورود اعضا</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT FILES -->
+    <script type="text/javascript">var plugin_path = "{% static 'smarty/plugins/' %}";</script>
+    <script type="text/javascript" src="{% static 'smarty/plugins/jquery/jquery-2.1.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'smarty/js/app.js' %}"></script>
+</body>
+</html>
