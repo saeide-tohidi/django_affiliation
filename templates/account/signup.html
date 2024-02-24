@@ -1,0 +1,134 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>ثبت نام در سایت</title>
+    <meta name="description" content=""/>
+    <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]"/>
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0"/>
+
+    <!-- WEB FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext"
+          rel="stylesheet" type="text/css"/>
+
+    <!-- CORE CSS -->
+    <link href="{% static 'smarty/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!-- THEME CSS -->
+    <link href="{% static 'smarty/css/essentials.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/css/layout.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/css/color_scheme/green.css' %}" rel="stylesheet" type="text/css" id="color_scheme"/>
+
+</head>
+<!--
+    .boxed = boxed version
+-->
+<body>
+
+
+    <div class="padding-15">
+
+        <div class="login-box">
+
+            {% if messages %}
+                <div class="alert alert-info">
+                    <div class="text-left list-inline">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- registration form -->
+            <form action="{% url 'account_signup' %}" method="post" class="sky-form boxed" novalidate="novalidate"
+                  dir="rtl" align="right">
+                {% csrf_token %}
+                <header><i class="fa fa-users"></i> یک حساب کاربری جدید ایجاد کنید <small class="note bold"></small>
+                </header>
+
+                <fieldset>
+
+
+                    <section>
+                        <label class="label">ایمیل</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-envelope"></i>
+                            <input type="email" name="email">
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="label">گذرواژه</label>
+                        <label class="input">
+                            <input type="password" name="password1">
+                            <i class="icon-append fa fa-lock"></i>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="label">تکرار گذرواژه</label>
+                        <label class="input">
+                            <input type="password" name="password2">
+                            <i class="icon-append fa fa-lock"></i>
+                        </label>
+                    </section>
+
+                    {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                    {% endif %}
+                </fieldset>
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <div class="text-right list-inline">
+                            {% for key, value in form.errors.items %}
+                                <p>{{ value }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <footer>
+                    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check"></i> ساخت حساب
+                        کاربری
+                    </button>
+                </footer>
+
+            </form>
+            <!-- /registration form -->
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT FILES -->
+    <script type="text/javascript">var plugin_path = "{% static 'smarty/plugins/' %}";</script>
+    <script type="text/javascript" src="{% static 'smarty/plugins/jquery/jquery-2.1.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'smarty/js/app.js' %}"></script>
+
+    <!-- PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript">
+
+        /**
+         Checkbox on "I agree" modal Clicked!
+         **/
+        jQuery("#terms-agree").click(function () {
+            jQuery('#termsModal').modal('toggle');
+
+            // Check Terms and Conditions checkbox if not already checked!
+            if (!jQuery("#checked-agree").checked) {
+                jQuery("input.checked-agree").prop('checked', true);
+            }
+
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+{% load static %}
+{% load account %}
+
+
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>ورود به سایت</title>
+    <meta name="description" content=""/>
+    <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]"/>
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0"/>
+
+    <!-- WEB FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext"
+          rel="stylesheet" type="text/css"/>
+
+    <!-- CORE CSS -->
+    <link href="{% static 'smarty/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!-- THEME CSS -->
+    <link href="{% static 'smarty/css/essentials.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/css/layout.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/css/color_scheme/green.css' %}" rel="stylesheet" type="text/css" id="color_scheme"/>
+    <link href="{% static 'smarty/plugins/bootstrap/RTL/bootstrap-rtl.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/plugins/bootstrap/RTL/bootstrap-flipped.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'smarty/css/layout-RTL.css' %}" rel="stylesheet" type="text/css"/>
+
+</head>
+<!--
+    .boxed = boxed version
+-->
+<body>
+
+
+    <div class="padding-15">
+
+        <div class="login-box">
+
+            {% if messages %}
+                <div class="alert alert-info">
+                    <div class="text-left list-inline">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- login form -->
+            <form action="{% url 'account_login' %}" method="post" class="sky-form boxed">
+                {% csrf_token %}
+                <header class="text-left"><i class="fa fa-users"></i> ورود اعضا</header>
+
+                <fieldset>
+
+                    <section>
+                        <label class="label">ایمیل</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-envelope"></i>
+                            <input type="email" name="login">
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="label">گذرواژه</label>
+                        <label class="input">
+                            <input type="password" name="password">
+                            <i class="icon-append fa fa-lock"></i>
+                        </label>
+                    </section>
+                    {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                    {% endif %}
+
+                </fieldset>
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <div class="text-left list-inline">
+                            {% for key, value in form.errors.items %}
+                                <p>{{ value }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <footer>
+                    <button type="submit" class="btn btn-primary pull-right">ورود</button>
+                    <div class="forgot-password pull-left">
+                        <a href="{% url 'account_signup' %}"><b>ثبت نام در سایت</b></a><br>
+                        <a href="{% url 'account_reset_password' %}"><b>فراموشی رمز عبور</b></a>
+                    </div>
+                </footer>
+
+            </form>
+            <!-- /login form -->
+
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT FILES -->
+    <script type="text/javascript">var plugin_path = "{% static 'smarty/plugins/' %}";</script>
+    <script type="text/javascript" src="{% static 'smarty/plugins/jquery/jquery-2.1.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'smarty/js/app.js' %}"></script>
+</body>
+</html>
