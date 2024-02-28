@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "user.apps.UsersConfig",
+    "product.apps.ProductConfig",
+    "financial.apps.FinancialConfig",
 ]
 
 MIDDLEWARE = [
