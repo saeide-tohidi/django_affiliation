@@ -1,0 +1,112 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}پروفایل کاربری{% endblock %}
+
+{% block content %}
+
+    <!-- page title -->
+    <header id="page-header">
+        <br>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'crm_dashboard' %}">داشبورد</a></li>
+            <li class="active">پروفایل کاربری</li>
+        </ol>
+    </header>
+    <!-- /page title -->
+
+
+    <div id="content" class="padding-20">
+
+        <div class="page-profile">
+
+            <div class="row">
+
+                <div class="col-md-12 col-lg-12">
+
+                    <div class="tabs white nomargin-top">
+                        <ul class="nav nav-tabs tabs-primary">
+                            <li class="active">
+                                <a href="#edit" data-toggle="tab" aria-expanded="true">ویرایش اطلاعات</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <!-- Edit -->
+                            <div id="edit" class="tab-pane active">
+
+                                <form class="form-horizontal" method="POST">
+                                    {% csrf_token %}
+                                    <h4>اطلاعات شخصی</h4>
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="profileFirstName">نام</label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="first_name" value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
+                                                       class="form-control" id="profileFirstName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="profileLastName">نام
+                                                خانوادگی</label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="last_name" value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
+                                                       class="form-control" id="profileLastName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="profileAddress">موبایل</label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="phoneNo" value="{% if form.phoneNo.value %}{{ form.phoneNo.value }}{% endif %}"
+                                                       class="form-control" id="profileAddress">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"
+                                                   for="profileCompany">اینستاگرام</label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="instagram" value="{% if form.instagram.value %}{{ form.instagram.value }}{% endif %}"
+                                                       class="form-control" id="profileCompany">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="profileCompany">کانال
+                                                تلگرام</label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="telegram_channel" value="{% if form.telegram_channel.value %}{{ form.telegram_channel.value }}{% endif %}"
+                                                       class="form-control" id="profileCompany">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="profileCompany">وبسایت</label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="website" value="{% if form.website.value %}{{ form.website.value }}{% endif %}"
+                                                       class="form-control" id="profileCompany">
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+
+                                    <hr/>
+
+                                    <div class="row">
+                                        <div class="col-md-9 col-md-offset-3">
+                                            <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

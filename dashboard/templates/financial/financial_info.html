@@ -1,0 +1,153 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% load translate_tags %}
+
+{% block title %}پروفایل کاربری | اطلاعات حساب{% endblock %}
+
+{% block content %}
+
+<!-- page title -->
+<header id="page-header">
+    <br>
+    <ol class="breadcrumb">
+        <li><a href="{% url 'crm_dashboard' %}">داشبورد</a></li>
+        <li class="active">اطلاعات مالی</li>
+    </ol>
+</header>
+<!-- /page title -->
+
+
+<div id="content" class="padding-20">
+
+    <div class="page-profile">
+
+        <div class="row">
+
+            <!-- COL 1 -->
+            <div class="col-md-4 col-lg-3">
+                <section class="panel">
+                    <div class="panel-body noradius padding-10">
+                        <h6 class="">اطلاعات مالی</h6>
+                        <!-- updated -->
+                        <ul class="list-unstyled size-13">
+                            <br>
+                            <li class=""><i class="fa fa-money"></i> موجودی حساب: {% price_translate object.credit %} تومان </li>
+                        </ul><!-- /updated -->
+                        <a href="{% url 'request_payment' %}"><input type="button" value="درخواست تسویه حساب" class="btn btn-primary"></a>
+                    </div>
+                </section>
+            </div><!-- /COL 1 -->
+
+            <!-- COL 2 -->
+            <div class="col-md-8 col-lg-9">
+
+                <div class="tabs white nomargin-top">
+                    <ul class="nav nav-tabs tabs-primary">
+                        <li class="active">
+                            <a href="#edit" data-toggle="tab" aria-expanded="true">ویرایش اطلاعات مالی</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+
+                        <!-- Edit -->
+                        <div id="edit" class="tab-pane active">
+
+                            <form class="form-horizontal" method="POST">
+                                {% csrf_token %}
+                                <h4>اطلاعات حساب</h4>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="profileFirstName">شماره شبا</label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="sheba"
+                                                value="{% if form.sheba.value %}{{ form.sheba.value }}{% endif %}"
+                                                class="form-control" id="profileFirstName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="profileLastName">شماره کارت</label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="card_num"
+                                                value="{% if form.card_num.value %}{{ form.card_num.value }}{% endif %}"
+                                                class="form-control" id="profileLastName">
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-md-9 col-md-offset-3">
+                                        <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /COL 2 -->
+
+            <!-- COL 3 -->
+            <div class="col-md-12 col-lg-12">
+
+                <!-- 
+						PANEL CLASSES:
+							panel-default
+							panel-danger
+							panel-warning
+							panel-info
+							panel-success
+
+						INFO: 	panel collapse - stored on user localStorage (handled by app.js _panels() function).
+								All pannels should have an unique ID or the panel collapse status will not be stored!
+					-->
+                <div id="panel-1" class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="title elipsis">
+                            <strong>تراکنش‌های مالی</strong> <!-- panel title -->
+                        </span>
+
+                    </div>
+
+                    <!-- panel content -->
+                    <div class="panel-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-vertical-middle nomargin">
+                                <thead>
+                                    <tr>
+                                        <th>مبلغ</th>
+                                        <th>نوع تراکنش</th>
+                                        <th>تاریخ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for r in financial_record %}
+                                    <tr>
+                                        <td>{% price_translate r.amount %}</td>
+                                        <td>{{ r.get_type_display }}</td>
+                                        <td>{% date_translate r.created_at %}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- /panel content -->
+
+                </div>
+                <!-- /PANEL -->
+
+            </div><!-- /COL 3 -->
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

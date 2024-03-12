@@ -1,0 +1,65 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% load translate_tags %}
+
+{% block title %}محصول | {{ product.name }}{% endblock %}
+
+{% block content %}
+
+    <!-- page title -->
+    <header id="page-header">
+        <br>
+        <ol class="breadcrumb">
+            <li><a href="#">محصولات</a></li>
+            <li><a href="{% url 'product_list' %}">لیست محصولات</a></li>
+            <li class="active">{{ product.name }}</li>
+
+        </ol>
+    </header>
+    <!-- /page title -->
+
+
+    <div id="content" class="padding-20">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <!-- LEFT -->
+                    <div class="col-md-9">
+
+                        <h2><strong>{{ product.name }}</strong></h2>
+
+                        {{ product.description|safe }}
+
+                        <!-- CALLOUT -->
+                        <div class="alert callout alert-default fade in">
+                            <div class="row">
+                                <div class="col-md-9 col-sm-9"><!-- left text -->
+                                    <h4><strong>به جزئیات بیش‌تری از این محصول نیاز دارید؟</strong></h4>
+                                    <p>
+                                        اگر نیاز به اطلاع دقیق از سرفصل‌هایی که در اختیار خریداران قرار می‌گیرد، دارید
+                                        میتوانید از طریق این لینک مشاهده کنید!
+                                    </p>
+                                </div><!-- /left text -->
+                                <div class="col-md-3 col-sm-3 text-right"><!-- right btn -->
+                                    <a href="{{ product.view_name }}" rel="nofollow" target="_blank"
+                                       class="btn btn-danger btn-lg"> مشاهده محصول</a>
+                                </div><!-- /right btn -->
+                            </div>
+                        </div>
+                        <!-- /CALLOUT -->
+                    </div>
+                    <!-- /LEFT -->
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load static %}
+
+<aside id="aside">
+    <nav id="sideNav"><!-- MAIN MENU -->
+        {% with request.resolver_match.url_name as url_name %}
+            <ul class="nav nav-list">
+                <li {% if url_name == 'crm_dashboard' %} class="active" {% endif %}><!-- dashboard -->
+                    <a class="dashboard" href="{% url 'crm_dashboard' %}">
+                        <i class="main-icon fa fa-dashboard"></i> <span>داشبورد</span>
+                    </a>
+                </li>
+                <li {% if url_name == 'product_list' or  url_name == 'product_detail' %} class="active" {% endif %}>
+                    <a href="{% url 'product_list' %}">
+                        <i class="main-icon fa fa-book"></i> <span>محصولات</span>
+                    </a>
+                </li>
+                <li {% if url_name == 'lead_list' %} class="active" {% endif %}>
+                    <a href="{% url 'lead_list' %}">
+                        <i class="main-icon fa fa-bar-chart-o"></i> <span>لیدها</span>
+                    </a>
+                </li>
+            </ul>
+        {% endwith %}
+    </nav>
+    <span id="asidebg"><!-- aside fixed background --></span>
+</aside>
