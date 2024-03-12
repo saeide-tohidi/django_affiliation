@@ -1,0 +1,103 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% load translate_tags %}
+
+{% block title %}لیست محصولات{% endblock %}
+
+{% block content %}
+
+    <!-- page title -->
+    <header id="page-header">
+        <br>
+        <ol class="breadcrumb">
+            <li><a href="#">محصولات</a></li>
+            <li class="active">لیست محصولات</li>
+        </ol>
+    </header>
+    <!-- /page title -->
+
+
+    <div id="content" class="padding-20">
+        <div class="page-profile">
+            <div id="panel-1" class="panel panel-default">
+                <div class="panel-heading">
+							<span class="title elipsis">
+								<strong>لیست محصولات</strong> <!-- panel title -->
+							</span>
+                    <!-- right options -->
+                    <ul class="options pull-right list-inline">
+                        <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse"
+                               data-placement="bottom"></a></li>
+                        <li><a href="#" class="opt panel_fullscreen hidden-xs" data-toggle="tooltip" title="Fullscreen"
+                               data-placement="bottom"><i class="fa fa-expand"></i></a></li>
+                    </ul>
+                    <!-- /right options -->
+                </div>
+
+                <!-- panel content -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-vertical-middle nomargin">
+                            <thead>
+                            <tr>
+                                <th>عنوان</th>
+                                <th>مبلغ</th>
+                                <th>مبلغ با تخفیف</th>
+                                <th>سهم افلییتور</th>
+                                <th>جزئیات محصول</th>
+                                <th>لینک اختصاصی شما</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for p in products %}
+                                <tr>
+                                    <td>{{ p.name }}</td>
+                                    <td>{% price_translate p.price %}</td>
+                                    <td>{% if p.sale_price %}{% price_translate p.sale_price %}{% else %}
+                                        -{% endif %}</td>
+                                    <td>{% if p.affiliator_share %}{% price_translate p.affiliator_share %}{% else %}
+                                        -{% endif %}</td>
+                                    <td>
+                                        {% if p.product.is_active == True %}
+                                            <a href="{% url 'product_detail' p.product.pk %}"><span
+                                                    class="label label-primary">جزئیات</span></a>
+                                        {% else %}
+                                            <span
+                                                    class="">دسترسی به این محصول امکان پذیر نیست.</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if p.is_active == True %}
+                                            <button type="button" class="btn btn-primary"
+                                                    onclick="copyFunction('{{  p.product.view_name}}?lead={{ p.slug }}')">کپی کردن لینک
+                                            </button>
+                                        {% else %}
+                                            <span >استفاده از این لینک منقضی شده است.</span>--
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /panel content -->
+
+                <!-- panel footer -->
+                <div class="panel-footer">
+                </div>
+                <!-- /panel footer -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_ref %}
+    <script>
+        function copyFunction(slug) {
+            navigator.clipboard.writeText(slug);
+            _toastr("لینک اختصاصی شما با موفقیت کپی شد.", "top-left", "info", false);
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% load translate_tags %}
+
+{% block title %}Admin panel{% endblock %}
+
+{% block content %}
+
+    <div id="content" class="dashboard padding-20">
+        <!-- BOXES -->
+        <div class="row">
+            <!-- Feedback Box -->
+            <div class="col-md-3 col-sm-6">
+                <!-- BOX -->
+                <div class="box danger"><!-- default, danger, warning, info, success -->
+                    <div class="box-title"><!-- add .noborder class if box-body is removed -->
+                        <h4>کل لیدها: {{ all_leads_count }}</h4>
+                        <br>
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                </div>
+                <!-- /BOX -->
+            </div>
+            <!-- Profit Box -->
+            <div class="col-md-3 col-sm-6">
+                <!-- BOX -->
+                <div class="box warning"><!-- default, danger, warning, info, success -->
+                    <div class="box-title"><!-- add .noborder class if box-body is removed -->
+                        <h4>کل لیدهای منتهی به فروش: {{ buy_leads_count }}</h4>
+                        <br>
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                </div>
+                <!-- /BOX -->
+            </div>
+            <!-- Orders Box -->
+            <div class="col-md-3 col-sm-6">
+                <!-- BOX -->
+                <div class="box default"><!-- default, danger, warning, info, success -->
+                    <div class="box-title"><!-- add .noborder class if box-body is removed -->
+                        <h4>کل سهم شما از فروش: {% price_translate total_share_price.affiliator_share__sum %}
+                            تومان </h4>
+                        <br>
+                        <i class="fa fa-money"></i>
+                    </div>
+
+                </div>
+                <!-- /BOX -->
+            </div>
+            <!-- Online Box -->
+            <div class="col-md-3 col-sm-6">
+                <!-- BOX -->
+                <div class="box success"><!-- default, danger, warning, info, success -->
+                    <div class="box-title"><!-- add .noborder class if box-body is removed -->
+                        <h4>اعتبار شما: {% price_translate financial_info.credit %} تومان </h4>
+                        <br>
+                        <i class="fa fa-credit-card"></i>
+                    </div>
+                </div>
+                <!-- /BOX -->
+            </div>
+        </div>
+        <!-- /BOXES -->
+        <div class="row">
+            <div id="panel-1" class="panel panel-default">
+                <div class="panel-heading">
+							<span class="title elipsis">
+								<strong>آخرین لیدها</strong> <!-- panel title -->
+							</span>
+                    <!-- right options -->
+                    <ul class="options pull-right list-inline">
+                        <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse"
+                               data-placement="bottom"></a></li>
+                        <li><a href="#" class="opt panel_fullscreen hidden-xs" data-toggle="tooltip" title="Fullscreen"
+                               data-placement="bottom"><i class="fa fa-expand"></i></a></li>
+                    </ul>
+                    <!-- /right options -->
+                </div>
+
+                <!-- panel content -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-vertical-middle nomargin">
+                            <thead>
+                            <tr>
+                                <th>محصول</th>
+                                <th>نام مشتری</th>
+                                <th>ایمیل/تلفن مشتری</th>
+                                <th>مبلغ</th>
+                                <th>مبلغ با تخفیف</th>
+                                <th>سهم افلییتور</th>
+                                <th>وضعیت لید</th>
+                                <th>جزئیات محصول</th>
+                                <th>تاریخ ایجاد</th>
+                                <th>آخرین آپدیت</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for l in leads %}
+                                <tr>
+                                    <td>{{ l.affiliator_product.name }}</td>
+                                    <td>{{ l.full_name }}</td>
+                                    <td>{% if  l.phoneNo %}{% hide_some_char l.phoneNo %} {% else %}
+                                        {% hide_some_char l.email %}{% endif %}</td>
+
+                                    <td>{% price_translate l.price %}</td>
+                                    <td>{% if l.sale_price %}{% price_translate l.sale_price %}{% else %}
+                                        -{% endif %}</td>
+                                    <td>{% if l.affiliator_share %}{% price_translate l.affiliator_share %}{% else %}
+                                        -{% endif %}</td>
+                                    <td>{{ l.get_status_display }}</td>
+                                    <td>
+                                        {% if l.affiliator_product.is_active == True %}
+                                            <a href="{% url 'product_detail' l.affiliator_product.product.pk %}"><span
+                                                    class="label label-primary">جزئیات</span></a>
+                                        {% else %}
+                                            <span
+                                                    class="">دسترسی به این محصول امکان پذیر نیست.</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{% date_translate l.create_at %}</td>
+                                    <td>{% date_translate l.update_at %}</td>
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /panel content -->
+
+                <!-- panel footer -->
+                <div class="panel-footer">
+                </div>
+                <!-- /panel footer -->
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

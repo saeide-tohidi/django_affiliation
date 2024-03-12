@@ -1,0 +1,53 @@
+{% load static %}
+{% load render_partial %}
+
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>{% block title %}Affiliation App{% endblock %}</title>
+    <meta name="description" content=""/>
+    <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]"/>
+
+    <!-- mobile settings -->
+    <meta name="مشاهدهport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0"/>
+
+    {% include 'shared/_HeaderReferences.html' %}
+
+    {% block header_ref %}{% endblock %}
+</head>
+
+<!-- .boxed = boxed version -->
+
+<body>
+    <!-- WRAPPER -->
+    <div id="wrapper" class="clearfix">
+
+        <!-- ASIDE Keep it outside of #wrapper (responsive purpose) -->
+        {% render_partial 'sidebar' %}
+        <!-- /ASIDE -->
+
+
+        <!-- HEADER -->
+        {% render_partial 'header' %}
+        <!-- /HEADER -->
+
+
+        <!-- MIDDLE -->
+        <section id="middle">
+
+            {% block content %}{% endblock %}
+
+        </section>
+        <!-- /MIDDLE -->
+
+    </div>
+
+
+    {% include 'shared/_FooterReferences.html' %}
+
+    {% block footer_ref %}{% endblock %}
+
+</body>
+</html>
