@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "product.apps.ProductConfig",
     "financial.apps.FinancialConfig",
     "crm.apps.CrmConfig",
+    "dashboard.apps.DashboardConfig",
 ]
 
 MIDDLEWARE = [
