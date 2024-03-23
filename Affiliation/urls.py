@@ -8,6 +8,11 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("crm/", include("dashboard.urls")),
+    path("crm/", include("user.urls")),
+    path("crm/", include("financial.urls")),
+    path("crm/", include("product.urls")),
+    path("crm/", include("crm.urls")),
 ]
 
 
